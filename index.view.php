@@ -17,23 +17,35 @@
     <h1>Articles</h1>
     <section class="articles">
       <ul>
-        <li>1. Lorem ipsum dolor sit amet consectetur.</li>
-        <li>2. Lorem ipsum dolor sit amet consectetur.</li>
-        <li>3. Lorem ipsum dolor sit amet consectetur.</li>
-        <li>4. Lorem ipsum dolor sit amet consectetur.</li>
-        <li>5. Lorem ipsum dolor sit amet consectetur.</li>
+        <?php foreach ($articles as $article): ?>
+          <li><?php echo $article['id'] . '. ' . $article['article'] ?></li>
+        <?php endforeach; ?>
       </ul>
     </section>
 
     <section class="pagination">
       <ul>
-        <li class="disabled">&laquo;</li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">&raquo;</a></li>
+        <?php if ($page == 1): ?>
+          <li class="disabled">&laquo;</li>
+        <?php else: ?>
+          <li><a href="?page=<?php echo $page - 1 ?>">&laquo;</a></li>
+        <?php endif; ?>
 
+        <?php 
+          for ($i=1; $i <= $numberPages; $i++) { 
+            if ($page == $i) {
+              echo "<li class='active'><a href='?page=$i'>$i</a></li>";
+            } else {
+              echo  "<li><a href='?page=$i'>$i</a></li>";
+            }
+          }
+        ?>
+
+        <?php if ($page == $numberPages): ?>
+          <li class="disabled">&raquo;</li>
+        <?php else: ?>
+          <li><a href="?page=<?php echo $page + 1 ?>">&raquo;</a></li>
+        <?php endif; ?>
       </ul>
     </section>
   </div>
